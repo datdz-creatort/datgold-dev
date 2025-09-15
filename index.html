@@ -1,158 +1,173 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Đạt Gold Dev — Profile v2</title>
-<meta name="theme-color" content="#000000" />
-<meta name="description" content="LinkBio neon galaxy — GoldStack Team" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' font-size='52'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Miku Beam — Demo (Safe)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#02030A; --fg:#e6ffff; --cyan:#00ffff; --vio:#8a2be2;
-  --glow:0 0 25px rgba(0,255,255,.45),0 0 60px rgba(138,43,226,.25);
-  --card-bg:rgba(2,8,20,.48);
-}
-html,body{
-  height:100%; margin:0; background:var(--bg); color:var(--fg);
-  font-family:system-ui,Segoe UI,Inter,Roboto,Arial,sans-serif;
-  overflow: auto;
-}
-.wrap{position:relative; z-index:2; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px}
-.shell{width:100%; max-width:1100px; display:grid; grid-template-columns:1.1fr .9fr; gap:26px}
-@media (max-width:900px){ .shell{grid-template-columns:1fr; gap:20px} }
-
-.panel{padding:22px; border-radius:18px; background:var(--card-bg); backdrop-filter:saturate(150%) blur(12px); box-shadow:var(--glow); transition:.3s}
-.panel:hover{box-shadow:0 0 50px var(--cyan),0 0 100px var(--vio); transform:scale(1.02)}
-
-.head{display:flex; align-items:center; gap:16px}
-.avatar{position:relative; width:96px; height:96px; border-radius:50%; overflow:hidden; border:2px solid var(--cyan); box-shadow:var(--glow); cursor:pointer; transition:.3s}
-.avatar::after{content:""; position:absolute; inset:-6px; border-radius:50%;
-  background:conic-gradient(from 0deg, rgba(0,255,255,.25), rgba(138,43,226,.25), rgba(0,255,255,.25));
-  filter:blur(14px); z-index:-1; animation:halo 6s linear infinite}
-@keyframes halo{to{transform:rotate(360deg)}}
-.avatar:hover{box-shadow:0 0 60px var(--cyan),0 0 100px var(--vio); transform:scale(1.08)}
-.avatar img{width:100%; height:100%; object-fit:cover}
-.online{position:absolute; right:6px; bottom:6px; width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--cyan),var(--vio)); box-shadow:0 0 10px var(--cyan)}
-
-.title h1{margin:0; font-size:1.6rem; letter-spacing:.3px; color:var(--cyan); text-shadow:0 0 14px currentColor; display:flex; align-items:center; gap:8px}
-.badge-verify{display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px}
-.badge-verify svg{display:block}
-
-.sub{color:#bfefff; opacity:.9}
-.badges{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 6px}
-.badge{font-size:.9rem; padding:6px 10px; border-radius:10px; background:rgba(0,0,0,.25); border:1px solid rgba(0,255,255,.35); color:var(--fg)}
-.badge a{color:inherit; text-decoration:none}
-.bio{margin:12px 0 16px; color:#dfffff}
-
-.actions{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
-.btn{padding:12px 10px; border-radius:12px; border:1.6px solid var(--cyan); background:transparent; color:var(--cyan); font-weight:700; cursor:pointer; transition:.25s transform,color,box-shadow; text-align:center}
-.btn:hover{transform:translateY(-2px); background:radial-gradient(120% 120% at 50% 10%, rgba(0,255,255,.22), rgba(138,43,226,.22)); box-shadow:var(--glow); color:#001217}
-
-.section{margin:4px 0 12px; color:var(--cyan); font-weight:800; text-shadow:0 0 10px var(--cyan); position:relative}
-.section::after{content:""; position:absolute; left:0; bottom:-6px; width:72px; height:3px; background:linear-gradient(90deg,var(--cyan),var(--vio)); border-radius:2px}
-.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
-@media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:520px){ .grid{grid-template-columns:1fr} }
-.tile{display:flex; justify-content:center; align-items:center; gap:8px; padding:14px 12px; border-radius:14px; text-decoration:none; color:var(--fg); background:rgba(0,0,0,.35); border:1px solid rgba(0,255,255,.25); transition:.25s all}
-.tile:hover{background:radial-gradient(circle at center, rgba(0,255,255,.25), rgba(138,43,226,.2)); box-shadow:var(--glow); transform:scale(1.05)}
-.footer{text-align:center; margin-top:18px; color:#bfefff}
-
-.toast{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:linear-gradient(135deg,var(--cyan),var(--vio)); color:#001217; padding:10px 16px; border-radius:12px; font-weight:800; display:none; z-index:5; box-shadow:var(--glow)}
-
-#galaxy{position:fixed; top:0; left:0; width:100%; height:100%; z-index:0}
+  :root{
+    --pink:#ff5aa7; --cyan:#00c2ff; --card:#ffffff;
+    --bg:#f6f7fb; --muted:#9aa3b2;
+  }
+  *{box-sizing:border-box;font-family:Inter,system-ui,Arial;}
+  body{margin:0;background:linear-gradient(180deg,#f8f9fc 0%, #eef2f8 100%);padding:24px;display:flex;justify-content:center}
+  .card{width:100%;max-width:860px;background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(17,24,39,.06);padding:22px}
+  .hero{height:160px;border-radius:10px;background-image:url('https://i.imgur.com/3v8N8IH.gif');background-size:cover;background-position:center;margin-bottom:14px}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  input[type=text], input[type=number], select{
+    flex:1;padding:12px;border-radius:10px;border:1px solid #eee;background:#fff;
+    outline:none;font-size:14px;color:#222;
+  }
+  .btn{
+    background:linear-gradient(90deg,var(--pink),#ff7799);color:white;border:none;padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .smallbtn{background:#0ea5ff;color:white;padding:10px;border-radius:10px;border:none;cursor:pointer}
+  .stats{display:flex;gap:14px;margin-top:18px}
+  .stat{flex:1;padding:18px;border-radius:10px;background:linear-gradient(180deg,#fff,#fafbfd);text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .stat .label{font-size:13px;color:var(--muted)}
+  .stat .value{font-size:24px;font-weight:700;margin-top:8px;color:#111}
+  .progress{height:10px;background:#f0f2f6;border-radius:10px;margin-top:12px;overflow:hidden}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .3s}
+  .console{margin-top:14px;padding:14px;background:#0b1220;color:#9ff6d6;border-radius:8px;font-family:monospace}
+  footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
+  @media(max-width:640px){
+    .row{flex-direction:column}
+    .hero{height:120px}
+  }
 </style>
 </head>
 <body>
-<canvas id="galaxy" aria-hidden="true"></canvas>
-<div class="wrap">
-  <div class="shell">
-    <!-- Hồ sơ -->
-    <section class="panel" aria-label="Hồ sơ">
-      <div class="head">
-        <div class="avatar" id="avatar" title="Nhấn để thả tim">
-          <img src="datgold.jpg" alt="Đạt Gold Dev Avatar" loading="lazy" />
-          <span class="online" aria-hidden="true"></span>
-        </div>
-        <div class="title">
-          <h1>Đạt Gold Dev
-            <span class="badge-verify" title="Verified">
-              <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M12 2l2.3 1.3 2.6-.1 1.7 2 .1 2.6L20 10l1.7 2.2-.1 2.6-1.7 2-2.6-.1L12 22l-2.3-1.3-2.6.1-1.7-2-.1-2.6L4 12l-1.7-2.2.1-2.6 1.7-2 2.6.1L12 2z" fill="url(#g)"/>
-                <path d="M10.2 13.3l-2-2 1.4-1.4 1.3 1.3 3.5-3.5 1.4 1.4-4.9 5.2z" fill="#001217"/>
-                <defs><linearGradient id="g" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#00ffff"/><stop offset="1" stop-color="#8a2be2"/></linearGradient></defs>
-              </svg>
-            </span>
-          </h1>
-          <div class="sub">Coder • Reverse Eng • GoldStack</div>
-        </div>
-      </div>
-      <div class="badges">
-        <span class="badge">📍 Đắk Lắk, Việt Nam</span>
-        <span class="badge">☎ 0869350683</span>
-        <span class="badge">✉ datgold@gmail.com</span>
-      </div>
-      <p class="bio">💻 Developer | Tool | MMO | GoldStack Team</p>
-      <div class="actions">
-        <a class="btn" id="cta" href="https://www.facebook.com/datgolf?mibextid=ZbWKwL" target="_blank" rel="noopener">LIÊN HỆ</a>
-        <button class="btn" id="toggleMusicBtn" aria-pressed="true">🔊 Tắt nhạc</button>
-      </div>
-    </section>
+  <div class="card" role="main" aria-label="Miku Beam Demo">
+    <div class="hero" aria-hidden="true"></div>
 
-    <!-- Liên kết & mạng xã hội -->
-    <section class="panel" aria-label="Liên kết & mạng xã hội">
-      <div class="section">Tài nguyên</div>
-      <div class="grid">
-        <a class="tile" href="https://github.com/datdz-creatort" target="_blank" rel="noopener">💻 <strong>GitHub</strong></a>
-        <a class="tile" href="https://trongtraicay.shop/" target="_blank" rel="noopener">👀 <strong>Shop Source</strong></a>
-        <a class="tile" href="https://t.me/datmeddos" target="_blank" rel="noopener">📝 <strong>Nhóm Tele</strong></a>
+    <div class="row" style="margin-bottom:10px">
+      <input id="target" type="text" placeholder="Enter target URL or IP (demo only)">
+      <button id="startBtn" class="btn">⚡ Start Miku Beam</button>
+      <button id="stopBtn" class="smallbtn" title="Stop">⏹ Stop</button>
+    </div>
+
+    <div class="row" style="margin-bottom:8px">
+      <div style="flex:1">
+        <label class="label">Attack Method</label>
+        <select id="method" aria-label="method">
+          <option>HTTP/Flood (demo)</option>
+          <option>TCP Flood (demo)</option>
+          <option>Slowloris (demo)</option>
+        </select>
       </div>
-      <div class="section">Theo dõi nhanh</div>
-      <div class="grid">
-        <a class="tile" href="#" target="_blank" rel="noopener">▶ <strong>YouTube</strong></a>
-        <a class="tile" href="https://www.facebook.com/datgolf?mibextid=ZbWKwL" target="_blank" rel="noopener">📘 <strong>Facebook</strong></a>
-        <a class="tile" href="https://zalo.me/84395659691" target="_blank" rel="noopener">💬 <strong>Zalo</strong></a>
-        <a class="tile" href="#" id="copyMail">📎 <strong>Copy Email</strong></a>
-        <a class="tile" href="#" id="copyPhone">📞 <strong>Copy Phone</strong></a>
+      <div style="width:120px">
+        <label class="label">Packet Size (kb)</label>
+        <input id="size" type="number" value="64" min="1">
       </div>
-      <div class="footer">© 2025 • Đạt Gold Dev | GoldStack Team</div>
-    </section>
+      <div style="width:140px">
+        <label class="label">Duration (s)</label>
+        <input id="duration" type="number" value="60" min="1">
+      </div>
+      <div style="width:140px">
+        <label class="label">Packet Delay (ms)</label>
+        <input id="delay" type="number" value="100" min="0">
+      </div>
+    </div>
+
+    <div class="stats" aria-hidden="false">
+      <div class="stat"><div class="label">Packets/sec</div><div id="pps" class="value">0</div></div>
+      <div class="stat"><div class="label">Active Bots</div><div id="bots" class="value">5</div></div>
+      <div class="stat"><div class="label">Total Packets</div><div id="total" class="value">0</div></div>
+    </div>
+
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="bar" class="bar"></div>
+    </div>
+
+    <div class="console" id="console">ℹ️ Connected to the demo server (simulated).</div>
+
+    <footer>Demo miễn phí — chỉ mô phỏng giao diện. Không thực hiện hành vi gây hại.</footer>
   </div>
-</div>
-
-<div class="toast" id="toast">Đã copy!</div>
-
-<audio id="backgroundAudio" loop preload="auto" style="display:none">
-  <source src="https://pomf2.lain.la/f/l5nv41b6.mp3" type="audio/mpeg" />
-</audio>
 
 <script>
-// Music toggle
-const audio=document.getElementById('backgroundAudio');
-const btn=document.getElementById('toggleMusicBtn');
-(async()=>{try{await audio.play();}catch{btn.textContent='🔈 Bật nhạc';}})();
-btn.addEventListener('click',async()=>{ if(audio.paused){await audio.play(); btn.textContent='🔊 Tắt nhạc';} else { audio.pause(); btn.textContent='🔈 Bật nhạc'; }});
+(function(){
+  const start = document.getElementById('startBtn');
+  const stop = document.getElementById('stopBtn');
+  const ppsEl = document.getElementById('pps');
+  const totalEl = document.getElementById('total');
+  const bar = document.getElementById('bar');
+  const consoleEl = document.getElementById('console');
+  const botsEl = document.getElementById('bots');
 
-// Toast + copy
-const toast=document.getElementById('toast');
-function showToast(text){ toast.textContent=text; toast.style.display='block'; clearTimeout(showToast.t); showToast.t=setTimeout(()=>toast.style.display='none',1500); }
-function safeCopy(t){ if(navigator.clipboard?.writeText){navigator.clipboard.writeText(t).then(()=>showToast('Đã copy!'));} else { const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast('Đã copy!'); }}
-document.getElementById('copyMail')?.addEventListener('click',(e)=>{e.preventDefault(); safeCopy('datgold@gmail.com')});
-document.getElementById('copyPhone')?.addEventListener('click',(e)=>{e.preventDefault(); safeCopy('0869350683')});
+  let running = false;
+  let total = 0;
+  let pps = 0;
+  let intervalId = null;
 
-// Galaxy background
-const cvs=document.getElementById('galaxy'), ctx=cvs.getContext('2d');
-let W,H,stars=[],meteors=[]; function size(){W=cvs.width=innerWidth; H=cvs.height=innerHeight}
-function makeStars(n){stars=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.2,v:Math.random()*0.25+0.08}))}
-function draw(){ctx.clearRect(0,0,W,H);
-  const grd=ctx.createRadialGradient(W*.7,H*.3,0,W*.7,H*.3,Math.max(W,H)*.8); grd.addColorStop(0,'rgba(0,255,255,.06)'); grd.addColorStop(1,'transparent'); ctx.fillStyle=grd; ctx.fillRect(0,0,W,H);
-  ctx.fillStyle='#fff'; for(const s of stars){ s.y+=s.v; if(s.y>H){s.y=0; s.x=Math.random()*W} ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
-  ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--cyan'); ctx.lineWidth=1.6;
-  for(let i=meteors.length;i--;){ const m=meteors[i]; ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(m.x-m.l*.6,m.y+m.l); ctx.stroke(); m.x+=m.v*.35; m.y+=m.v; if(m.y>H) meteors.splice(i,1); }
-  if(Math.random()<0.015) meteors.push({x:Math.random()*W,y:0,l:Math.random()*90+40,v:Math.random()*4+5});
-  requestAnimationFrame(draw);
-}
-addEventListener('resize',()=>{size(); makeStars(280)}); size(); makeStars(280); draw();
+  function log(msg){
+    consoleEl.textContent = '› ' + msg;
+  }
+
+  function startSim(){
+    if(running) return;
+    running = true;
+    total = 0;
+    pps = 0;
+    ppsEl.textContent = '0';
+    totalEl.textContent = '0';
+    bar.style.width = '0%';
+    log('Starting demo simulation...');
+    const duration = Math.max(1, Number(document.getElementById('duration').value) || 60);
+    const delay = Math.max(0, Number(document.getElementById('delay').value) || 100);
+    const size = Math.max(1, Number(document.getElementById('size').value) || 64);
+    const method = document.getElementById('method').value;
+
+    // simulate active bots (random small fluctuation)
+    botsEl.textContent = String(3 + Math.floor(Math.random()*6));
+
+    const startTime = Date.now();
+    intervalId = setInterval(()=>{
+      const elapsed = Math.floor((Date.now()-startTime)/1000);
+      const progress = Math.min(100, (elapsed/duration)*100);
+      bar.style.width = progress + '%';
+
+      // simulate packets-per-sec depending on "size" and "delay"
+      // purely cosmetic: larger delay -> smaller pps
+      const base = Math.max(1, Math.round((1000 / (delay||1)) * (64/size)));
+      // vary a bit
+      pps = base + Math.floor(Math.random() * base);
+      total += pps;
+      ppsEl.textContent = String(pps);
+      totalEl.textContent = String(total);
+
+      log(`Simulating ${method} • ${pps} pps • elapsed ${elapsed}s/${duration}s`);
+
+      if(elapsed >= duration){
+        stopSim();
+        log('Simulation finished.');
+      }
+    }, 1000);
+  }
+
+  function stopSim(){
+    if(!running) return;
+    running = false;
+    clearInterval(intervalId);
+    intervalId = null;
+    bar.style.width = '100%';
+    log('Simulation stopped.');
+  }
+
+  start.addEventListener('click', ()=>{
+    startSim();
+  });
+  stop.addEventListener('click', ()=> stopSim());
+
+  // small UX: disable editing of target to emphasize demo-only
+  document.getElementById('target').addEventListener('focus', () => {
+    alert('Note: This demo does not send any network traffic. Target field is for UI only.');
+  });
+
+  // initial message
+  log('Ready — demo only.');
+})();
 </script>
 </body>
 </html>
