@@ -1,173 +1,84 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Miku Beam — Demo (Safe)</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --pink:#ff5aa7; --cyan:#00c2ff; --card:#ffffff;
-    --bg:#f6f7fb; --muted:#9aa3b2;
-  }
-  *{box-sizing:border-box;font-family:Inter,system-ui,Arial;}
-  body{margin:0;background:linear-gradient(180deg,#f8f9fc 0%, #eef2f8 100%);padding:24px;display:flex;justify-content:center}
-  .card{width:100%;max-width:860px;background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(17,24,39,.06);padding:22px}
-  .hero{height:160px;border-radius:10px;background-image:url('https://i.imgur.com/3v8N8IH.gif');background-size:cover;background-position:center;margin-bottom:14px}
-  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  input[type=text], input[type=number], select{
-    flex:1;padding:12px;border-radius:10px;border:1px solid #eee;background:#fff;
-    outline:none;font-size:14px;color:#222;
-  }
-  .btn{
-    background:linear-gradient(90deg,var(--pink),#ff7799);color:white;border:none;padding:12px 18px;border-radius:10px;cursor:pointer;font-weight:600;
-    display:inline-flex;align-items:center;gap:8px;
-  }
-  .smallbtn{background:#0ea5ff;color:white;padding:10px;border-radius:10px;border:none;cursor:pointer}
-  .stats{display:flex;gap:14px;margin-top:18px}
-  .stat{flex:1;padding:18px;border-radius:10px;background:linear-gradient(180deg,#fff,#fafbfd);text-align:center;box-shadow:0 1px 0 rgba(0,0,0,.02)}
-  .stat .label{font-size:13px;color:var(--muted)}
-  .stat .value{font-size:24px;font-weight:700;margin-top:8px;color:#111}
-  .progress{height:10px;background:#f0f2f6;border-radius:10px;margin-top:12px;overflow:hidden}
-  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--cyan));transition:width .3s}
-  .console{margin-top:14px;padding:14px;background:#0b1220;color:#9ff6d6;border-radius:8px;font-family:monospace}
-  footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
-  @media(max-width:640px){
-    .row{flex-direction:column}
-    .hero{height:120px}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Đạt Ở Ẩn Dev</title>
+  <link rel="icon" href="https://i.imgur.com/PhnYcyu.jpeg" type="image/x-icon">
+  <style>
+    body {
+      margin:0;
+      padding:0;
+      font-family: sans-serif;
+      background: url('https://media.tenor.com/k3BNIDqMr6QAAAAC/hacking-hacker.gif') no-repeat center center fixed;
+      background-size:cover;
+      color:#fff;
+      overflow-x:hidden;
+    }
+    .center {
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      text-align:center;
+    }
+    .logo {
+      width: 300px;
+      max-width:80vw;
+      border-radius:16px;
+      animation:pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%{transform:scale(1);}
+      50%{transform:scale(1.05);}
+      100%{transform:scale(1);}
+    }
+    .rainbow {
+      font-size: 24px;
+      font-weight:bold;
+      display:inline-block;
+      animation: rainbow 3s linear infinite;
+    }
+    @keyframes rainbow {
+      0%{color:red;}
+      20%{color:orange;}
+      40%{color:yellow;}
+      60%{color:lime;}
+      80%{color:aqua;}
+      100%{color:violet;}
+    }
+    /* hiệu ứng chữ gõ */
+    .typing {
+      width: 22ch;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .15em solid orange;
+      animation: typing 4s steps(22,end), blink-caret .75s step-end infinite;
+      margin: 10px auto;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 22ch }
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: orange; }
+    }
+  </style>
 </head>
 <body>
-  <div class="card" role="main" aria-label="Miku Beam Demo">
-    <div class="hero" aria-hidden="true"></div>
 
-    <div class="row" style="margin-bottom:10px">
-      <input id="target" type="text" placeholder="Enter target URL or IP (demo only)">
-      <button id="startBtn" class="btn">⚡ Start Miku Beam</button>
-      <button id="stopBtn" class="smallbtn" title="Stop">⏹ Stop</button>
-    </div>
-
-    <div class="row" style="margin-bottom:8px">
-      <div style="flex:1">
-        <label class="label">Attack Method</label>
-        <select id="method" aria-label="method">
-          <option>HTTP/Flood (demo)</option>
-          <option>TCP Flood (demo)</option>
-          <option>Slowloris (demo)</option>
-        </select>
-      </div>
-      <div style="width:120px">
-        <label class="label">Packet Size (kb)</label>
-        <input id="size" type="number" value="64" min="1">
-      </div>
-      <div style="width:140px">
-        <label class="label">Duration (s)</label>
-        <input id="duration" type="number" value="60" min="1">
-      </div>
-      <div style="width:140px">
-        <label class="label">Packet Delay (ms)</label>
-        <input id="delay" type="number" value="100" min="0">
-      </div>
-    </div>
-
-    <div class="stats" aria-hidden="false">
-      <div class="stat"><div class="label">Packets/sec</div><div id="pps" class="value">0</div></div>
-      <div class="stat"><div class="label">Active Bots</div><div id="bots" class="value">5</div></div>
-      <div class="stat"><div class="label">Total Packets</div><div id="total" class="value">0</div></div>
-    </div>
-
-    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-      <div id="bar" class="bar"></div>
-    </div>
-
-    <div class="console" id="console">ℹ️ Connected to the demo server (simulated).</div>
-
-    <footer>Demo miễn phí — chỉ mô phỏng giao diện. Không thực hiện hành vi gây hại.</footer>
+  <div class="center">
+    <!-- logo mèo Dat Ở Ẩn -->
+    <img src="PUT-LINK-LOGO-Ở-ĐÂY" alt="Dat Ở Ẩn" class="logo">
+    <div class="typing">Đạt Ở Ẩn Dev</div>
+    <div class="rainbow">Trang web này hiện đã bị hack bởi Đạt Ở Ẩn</div>
   </div>
 
-<script>
-(function(){
-  const start = document.getElementById('startBtn');
-  const stop = document.getElementById('stopBtn');
-  const ppsEl = document.getElementById('pps');
-  const totalEl = document.getElementById('total');
-  const bar = document.getElementById('bar');
-  const consoleEl = document.getElementById('console');
-  const botsEl = document.getElementById('bots');
+  <!-- nhạc nền -->
+  <audio autoplay loop>
+    <source src="PUT-LINK-NHAC-Ở-ĐÂY.mp3" type="audio/mpeg">
+  </audio>
 
-  let running = false;
-  let total = 0;
-  let pps = 0;
-  let intervalId = null;
-
-  function log(msg){
-    consoleEl.textContent = '› ' + msg;
-  }
-
-  function startSim(){
-    if(running) return;
-    running = true;
-    total = 0;
-    pps = 0;
-    ppsEl.textContent = '0';
-    totalEl.textContent = '0';
-    bar.style.width = '0%';
-    log('Starting demo simulation...');
-    const duration = Math.max(1, Number(document.getElementById('duration').value) || 60);
-    const delay = Math.max(0, Number(document.getElementById('delay').value) || 100);
-    const size = Math.max(1, Number(document.getElementById('size').value) || 64);
-    const method = document.getElementById('method').value;
-
-    // simulate active bots (random small fluctuation)
-    botsEl.textContent = String(3 + Math.floor(Math.random()*6));
-
-    const startTime = Date.now();
-    intervalId = setInterval(()=>{
-      const elapsed = Math.floor((Date.now()-startTime)/1000);
-      const progress = Math.min(100, (elapsed/duration)*100);
-      bar.style.width = progress + '%';
-
-      // simulate packets-per-sec depending on "size" and "delay"
-      // purely cosmetic: larger delay -> smaller pps
-      const base = Math.max(1, Math.round((1000 / (delay||1)) * (64/size)));
-      // vary a bit
-      pps = base + Math.floor(Math.random() * base);
-      total += pps;
-      ppsEl.textContent = String(pps);
-      totalEl.textContent = String(total);
-
-      log(`Simulating ${method} • ${pps} pps • elapsed ${elapsed}s/${duration}s`);
-
-      if(elapsed >= duration){
-        stopSim();
-        log('Simulation finished.');
-      }
-    }, 1000);
-  }
-
-  function stopSim(){
-    if(!running) return;
-    running = false;
-    clearInterval(intervalId);
-    intervalId = null;
-    bar.style.width = '100%';
-    log('Simulation stopped.');
-  }
-
-  start.addEventListener('click', ()=>{
-    startSim();
-  });
-  stop.addEventListener('click', ()=> stopSim());
-
-  // small UX: disable editing of target to emphasize demo-only
-  document.getElementById('target').addEventListener('focus', () => {
-    alert('Note: This demo does not send any network traffic. Target field is for UI only.');
-  });
-
-  // initial message
-  log('Ready — demo only.');
-})();
-</script>
 </body>
 </html>
